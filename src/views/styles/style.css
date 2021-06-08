@@ -1,0 +1,9 @@
+h1 {
+    font-family: Verdana;
+    color: red;
+}
+
+.form{
+    width: min(90vw, 800px);
+    margin: auto;
+}

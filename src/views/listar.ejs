@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<style>
+    a {
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function mostrarTelaConfirmacao(nome, id){
+        $("#nomeCliente").html(nome);
+        $("#idCliente").val(id);
+        
+        var modalConfirmacao = $("#modalConfirmacao");
+        modalConfirmacao.show();
+    }
+    
+    function fecharTelaConfirmacao(){
+        $("#modalConfirmacao").hide();
+    }
+    
+    function deletarCliente(){
+        var id = $("#idCliente").val();
+        fecharTelaConfirmacao();
+        $.ajax("/excluir?id=" + id).done(function() {
+            location.reload();
+        })
+        .fail(function() {
+            console.log( "error" );
+            $("#alerta").css("display", "block");
+            setTimeout(function(){
+                $("#alerta").css("display", "none");
+            }, 2000)
+        })
+    }
+</script>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <h1>Clientes Cadastrados</h1>
+            </div>
+        </div>
+    
+        <table class="table mt-5">
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Idade</th>
+            <th>Alterar Cliente</th>
+            <th>Excluir Cliente</th>
+
+            <% clientes.forEach((clientes) => { %>
+             <tr>
+                <td><%= clientes.id %></td>
+                <td><%= clientes.nome %></td>
+                <td><%= clientes.email %></td>
+                <td><%= clientes.idade %> anos</td>
+
+                <td><a href="/alterar?id=<%= clientes.id %>">Alterar</a></td>
+                <td><a type="button" onclick="mostrarTelaConfirmacao('<%= clientes.nome %>', '<%= clientes.id %>')">Excluir</a></td>
+             </tr>
+            <% }) %>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal" id="modalConfirmacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Cliente: <label id="nomeCliente"></label> <br>Confirmar exclusão do cliente?</p>
+                    <input type="hidden" id="idCliente" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" onclick="fecharTelaConfirmacao()">Cancelar</button>
+                  <button type="button" class="btn btn-primary" onclick="deletarCliente()">Confirmar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col mt-3">
+                <a href="/index" class="btn btn-primary mt-4" style="width: 200px; background-color: #e9e9e9; border: solid 1px black; color: black;">Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

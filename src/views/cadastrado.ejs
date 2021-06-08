@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<style>
+    h1 {
+        font-family: Verdana;
+    }
+
+    .form{
+        width: min(90vw, 700px);
+        margin: auto;
+        border-radius: 20px;
+        padding: 30px;
+        background: #e9e9e9;
+        border: solid 1px black;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col" style="margin-top: 100px;">
+                <form class="form" action="/index">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1 class="mb-4">Cliente Cadastrado!</h1>
+                        </div>
+                    </div>
+
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-control" name="nome" value=" <%= client.nome %> " readonly>
+
+                    <label class="form-label mt-3">E-mail</label>
+                    <input type="text" class="form-control" name="email" value=" <%= client.email %> " readonly>
+
+                    <label class="form-label mt-3">Idade</label>
+                    <input type="text" class="form-control" name="idade" value=" <%= client.idade %> " readonly>
+
+                    <div class="row">
+                        <div class="col text-center">
+                            <button type="submit" class="btn btn-primary mt-4" style="width: 200px; background-color: #e9e9e9; color: black; border: solid 1px black;">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
